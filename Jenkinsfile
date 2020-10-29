@@ -1,4 +1,51 @@
 pipeline {
+    agent {label: 'HRMS&&QA'}
+    stages {
+        stage('App Build') {
+            steps {
+                echo 'Hello World Building the app'
+            }
+        }
+        stage('Deploy') {
+            when {
+                branch 'declarative'
+                environment name: 'DEPLOY_TO', value: 'declarative'
+            }
+            steps {
+                echo 'Deploying'
+            }
+        }
+    }
+}
+=============
+pipeline {
+    agent {label 'HRMS&&QA'}
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Example Deploy') {
+            when {
+                branch 'declarative'
+            }
+            steps {
+                echo 'Deploying'
+            }
+        }
+    }
+}
+=============
+
+
+
+
+
+
+
+
+pipeline {
    stages { 
   agent { label 'HRMS&&QA' }
   triggers { cron('50 * * * 1-2') }
